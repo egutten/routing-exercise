@@ -15,8 +15,7 @@ class Courses extends Component {
     }
     
     courseSelectedHandler = (id, title) => {
-      this.props.history.push('/courses/' + id + '/' + title);
-      console.log(this.props);
+      this.props.history.push(this.props.match.url + '/' + id + '/' + title);
     }
     
     render () {
@@ -32,7 +31,7 @@ class Courses extends Component {
                         } )
                     }
                 </section>
-                <Route path="/courses/:id/:title" component={Course}/>
+                <Route path={this.props.match.url + "/:id/:title"} component={Course}/>
             </div>
         );
     }

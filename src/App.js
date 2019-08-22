@@ -1,26 +1,24 @@
 import React, { Component } from 'react';
-import {Route, Link, Switch, Redirect} from 'react-router-dom';
+import {Route, NavLink, Switch, Redirect} from 'react-router-dom';
 
 import Courses from './containers/Courses/Courses';
 import Users from './containers/Users/Users';
 import Course from './containers/Course/Course';
+import NoMatch from './components/NoMatch/NoMatch';
 
 class App extends Component {
-  state = {
-    auth: true
-  }
   
   render () {
     return (
       <React.Fragment>
         <header>
           <nav>
-            <ul>
+            <ul style={{listStyle: 'none', margin: 'auto'}}>
               <li>
-                <Link to="/users">Users</Link>
+                <NavLink to="/users">Users</NavLink>
               </li>
               <li>
-                <Link to="/courses">Courses</Link>
+                <NavLink to="/courses">Courses</NavLink>
               </li>
             </ul>
           </nav>
@@ -40,10 +38,12 @@ class App extends Component {
           </div>
         
         <Switch>
-          {this.state.auth ? <Route path="/courses" component={Courses}/> : null}
+          <Route path="/courses" component={Courses}/> 
           <Route path="/users" component={Users}/>
+          <Redirect from="/all-courses" to="/courses" /> 
+          <Route component={NoMatch}/>
           {/* <Route render={() => <h1>Not found</h1>}/> */}
-          <Redirect from="/all-courses" to="/courses" />
+          
         </Switch>  
         
         
